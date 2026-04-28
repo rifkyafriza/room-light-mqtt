@@ -370,10 +370,8 @@ class RoomSimulatorApp:
                 return
             value = payload.upper()
             if value == "ON":
-                self.set_manual_override(True, run_auto=False)
                 self.set_all_lamps(True)
             elif value == "OFF":
-                self.set_manual_override(True, run_auto=False)
                 self.set_all_lamps(False)
             elif value == "AUTO":
                 self.set_manual_override(False, run_auto=True)
@@ -384,7 +382,6 @@ class RoomSimulatorApp:
             if self.manual_override:
                 return
             lamp_id = topic.split("/")[-1]
-            self.set_manual_override(True, run_auto=False)
             for lamp in self.lamps:
                 if lamp.lamp_id == lamp_id:
                     lamp.is_on = payload.upper() == "ON"

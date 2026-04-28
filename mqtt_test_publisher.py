@@ -18,12 +18,22 @@ def run_demo_sequence(client: mqtt.Client, delay: float) -> None:
     print("Running demo sequence for room lamp + motor simulator...")
 
     # --- AUTO MODE ---
-    # Switch to auto: lamps turn ON, lux drives brightness (1000=full yellow, 0=transparent).
+    # Switch to auto: lux/lamp MQTT messages are accepted.
     publish(client, "room/control/manual_override", "0", delay)
     publish(client, "room/sensors/lux", "1000", delay)
     publish(client, "room/sensors/lux", "600", delay)
     publish(client, "room/sensors/lux", "200", delay)
     publish(client, "room/sensors/lux", "0", delay)
+
+    # In auto mode, test individual lamp control topics.
+    publish(client, "room/control/lamp/lamp1", "OFF", delay)
+    publish(client, "room/control/lamp/lamp1", "ON", delay)
+    publish(client, "room/control/lamp/lamp2", "OFF", delay)
+    publish(client, "room/control/lamp/lamp2", "ON", delay)
+    publish(client, "room/control/lamp/lamp3", "OFF", delay)
+    publish(client, "room/control/lamp/lamp3", "ON", delay)
+    publish(client, "room/control/lamp/lamp4", "OFF", delay)
+    publish(client, "room/control/lamp/lamp4", "ON", delay)
 
     # --- MANUAL MODE ---
     # Enter manual override: lux/lamp MQTT messages are now ignored by the app.

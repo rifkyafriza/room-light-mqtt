@@ -21,9 +21,11 @@ def run_demo_sequence(client: mqtt.Client, delay: float) -> None:
     # Switch to auto: lux/lamp MQTT messages are accepted.
     publish(client, "room/control/manual_override", "0", delay)
     publish(client, "room/sensors/lux", "1000", delay)
+    publish(client, "room/control/lamp/all", "OFF", delay)
     publish(client, "room/sensors/lux", "600", delay)
     publish(client, "room/sensors/lux", "200", delay)
     publish(client, "room/sensors/lux", "0", delay)
+    publish(client, "room/sensors/lux", "500", delay)
 
     # In auto mode, test individual lamp control topics.
     publish(client, "room/control/lamp/lamp1", "OFF", delay)

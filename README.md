@@ -2,6 +2,10 @@
 
 Interactive Python simulation of a room with 4 lamps and 2 motors, visualized with Tkinter and driven by MQTT.
 
+## UI Preview
+
+![Room Light MQTT Simulator UI](Images/UI.png)
+
 ## Features
 
 - **4 lamps** drawn inside a room canvas

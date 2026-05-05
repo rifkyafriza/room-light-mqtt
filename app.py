@@ -92,8 +92,10 @@ class RoomSimulatorApp:
         buttons.grid(row=2, column=0, columnspan=2, sticky="ew", padx=8, pady=6)
         buttons.columnconfigure((0, 1), weight=1)
 
-        ttk.Button(buttons, text="Connect", command=self.connect_mqtt).grid(row=0, column=0, sticky="ew", padx=(0, 6))
-        ttk.Button(buttons, text="Disconnect", command=self.disconnect_mqtt).grid(row=0, column=1, sticky="ew")
+        self.connect_button = ttk.Button(buttons, text="Connect", command=self.connect_mqtt)
+        self.connect_button.grid(row=0, column=0, sticky="ew", padx=(0, 6))
+        self.disconnect_button = ttk.Button(buttons, text="Disconnect", command=self.disconnect_mqtt, state=tk.DISABLED)
+        self.disconnect_button.grid(row=0, column=1, sticky="ew")
 
         self.conn_label = ttk.Label(mqtt_box, text="State: DISCONNECTED")
         self.conn_label.grid(row=3, column=0, columnspan=2, sticky="w", padx=8, pady=(0, 8))
@@ -460,6 +462,15 @@ class RoomSimulatorApp:
 
     def update_connection_label(self) -> None:
         self.conn_label.config(text=f"State: {self.connection_state}")
+        self._update_mqtt_button_states()
+
+    def _update_mqtt_button_states(self) -> None:
+        if self.mqtt_connected:
+            self.connect_button.config(state=tk.DISABLED)
+            self.disconnect_button.config(state=tk.NORMAL)
+        else:
+            self.connect_button.config(state=tk.NORMAL)
+            self.disconnect_button.config(state=tk.DISABLED)
 
     def update_motor_value_label(self) -> None:
         m1 = self.motors[0].speed
